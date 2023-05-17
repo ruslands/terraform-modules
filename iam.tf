@@ -5,13 +5,6 @@ module "iam_user_gitlab_terraform" {
   create_iam_access_key = true
 }
 
-module "iam_user_s3_media" {
-  source                = "git::https://github.com/terraform-aws-modules/terraform-aws-iam.git//modules/iam-user?ref=v5.17.1"
-  name                  = "${local.project_name}-media"
-  path                  = "/${local.project_name}/"
-  create_iam_access_key = true
-}
-
 locals {
   gitlab_terraform_policies = toset([
     "AWSLambda_FullAccess",
