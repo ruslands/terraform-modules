@@ -1,5 +1,5 @@
 default:
-  image: registry.gitlab.com/gitlab-org/terraform-images/releases/1.4:v1.0.0
+  image: registry.gitlab.com/gitlab-org/terraform-images/releases/1.4:v1.2.0
 
 variables:
   TF_INIT_FLAGS: "-lockfile=readonly"
