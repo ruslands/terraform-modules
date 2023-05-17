@@ -6,10 +6,10 @@ terraform {
     }
   }
   backend "http" {
-    address        = "https://gitlab.com/api/v4/projects/45484112/terraform/state/terraform-infra"
-    lock_address   = "https://gitlab.com/api/v4/projects/45484112/terraform/state/terraform-infra/lock"
+    address        = "https://gitlab.com/api/v4/projects/46113981/terraform/state/terraform-infra"
+    lock_address   = "https://gitlab.com/api/v4/projects/46113981/terraform/state/terraform-infra/lock"
     lock_method    = "POST"
-    unlock_address = "https://gitlab.com/api/v4/projects/45484112/terraform/state/terraform-infra/lock"
+    unlock_address = "https://gitlab.com/api/v4/projects/46113981/terraform/state/terraform-infra/lock"
     unlock_method  = "DELETE"
     retry_wait_min = 5
   }
