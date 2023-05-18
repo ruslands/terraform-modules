@@ -31,60 +31,60 @@ module "staging_api_gateway" {
 
   # Routes and integrations
   integrations = {
-    # "POST /api/auth/v1/auth/basic" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Basic Auth)"
-    # }
-    # "GET /api/auth/v1/auth/google" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Google Auth)"
-    # }
-    # "GET /api/auth/v1/auth/google_callback" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Google Auth)"
-    # }
-    # "GET /api/auth/v1/auth/keycloak" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Keycloak Auth)"
-    # }
-    # "GET /api/auth/v1/auth/keycloak_callback" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Keycloak Auth)"
-    # }
-    # "GET /api/auth/v1/auth/apple" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Apple Auth)"
-    # }
-    # "GET /api/auth/v1/auth/apple_callback" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Apple Auth)"
-    # }
-    # "POST /api/auth/v1/auth/refresh-token" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Refresh Token)"
-    # }
-    # "GET /api/auth/v1/auth/logout" = {
-    #   lambda_arn             = data.aws_lambda_function.staging_auth.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Auth function proxy (Logout)"
-    # }
+    "POST /api/auth/v1/auth/basic" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Basic Auth)"
+    }
+    "GET /api/auth/v1/auth/google" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Google Auth)"
+    }
+    "GET /api/auth/v1/auth/google_callback" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Google Auth)"
+    }
+    "GET /api/auth/v1/auth/keycloak" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Keycloak Auth)"
+    }
+    "GET /api/auth/v1/auth/keycloak_callback" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Keycloak Auth)"
+    }
+    "GET /api/auth/v1/auth/apple" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Apple Auth)"
+    }
+    "GET /api/auth/v1/auth/apple_callback" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Apple Auth)"
+    }
+    "POST /api/auth/v1/auth/refresh-token" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Refresh Token)"
+    }
+    "GET /api/auth/v1/auth/logout" = {
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Auth function proxy (Logout)"
+    }
     "ANY /auth/admin" = {
       lambda_arn             = data.aws_lambda_function.development_auth.arn
       payload_format_version = "2.0"
