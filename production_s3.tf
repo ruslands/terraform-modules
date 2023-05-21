@@ -53,4 +53,9 @@ module "s3_bucket_production_frontend" {
       },
     ]
   })
+
+  tags = {
+    environment = "production"
+    project     = local.project_name
+  }
 }

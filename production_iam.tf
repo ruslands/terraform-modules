@@ -42,6 +42,7 @@ module "iam_policy_production_lambda" {
 
   tags = {
     environment = "production"
+    project     = local.project_name
   }
 }
 
@@ -70,5 +71,6 @@ resource "aws_iam_role" "production_lambda" {
 
   tags = {
     environment = "production"
+    project     = local.project_name
   }
 }

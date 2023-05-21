@@ -53,4 +53,9 @@ module "s3_bucket_staging_frontend" {
       },
     ]
   })
+
+  tags = {
+    environment = "staging"
+    project     = local.project_name
+  }
 }

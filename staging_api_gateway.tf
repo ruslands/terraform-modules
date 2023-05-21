@@ -86,7 +86,7 @@ module "staging_api_gateway" {
       description            = "Auth function proxy (Logout)"
     }
     "ANY /auth/admin" = {
-      lambda_arn             = data.aws_lambda_function.development_auth.arn
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Auth API Docs"
@@ -94,7 +94,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "GET /auth/docs" = {
-      lambda_arn             = data.aws_lambda_function.development_auth.arn
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Auth API Docs"
@@ -102,7 +102,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "GET /auth/redoc" = {
-      lambda_arn             = data.aws_lambda_function.development_auth.arn
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Auth API Docs"
@@ -110,7 +110,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "GET /auth/openapi.json" = {
-      lambda_arn             = data.aws_lambda_function.development_auth.arn
+      lambda_arn             = data.aws_lambda_function.staging_auth.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Auth API Docs"
@@ -118,7 +118,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "ANY /core/admin" = {
-      lambda_arn             = data.aws_lambda_function.development_core.arn
+      lambda_arn             = data.aws_lambda_function.staging_core.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Core API Docs"
@@ -126,7 +126,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "GET /core/docs" = {
-      lambda_arn             = data.aws_lambda_function.development_core.arn
+      lambda_arn             = data.aws_lambda_function.staging_core.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Core API Docs"
@@ -134,7 +134,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "GET /core/redoc" = {
-      lambda_arn             = data.aws_lambda_function.development_core.arn
+      lambda_arn             = data.aws_lambda_function.staging_core.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Core API Docs"
@@ -142,7 +142,7 @@ module "staging_api_gateway" {
       authorization_type     = "CUSTOM"
     }
     "GET /core/openapi.json" = {
-      lambda_arn             = data.aws_lambda_function.development_core.arn
+      lambda_arn             = data.aws_lambda_function.staging_core.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Core API Docs"
@@ -191,5 +191,6 @@ module "staging_api_gateway" {
 
   tags = {
     environment = "staging"
+    project     = local.project_name
   }
 }

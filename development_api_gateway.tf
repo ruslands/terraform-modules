@@ -191,5 +191,6 @@ module "development_api_gateway" {
 
   tags = {
     environment = "development"
+    project     = local.project_name
   }
 }

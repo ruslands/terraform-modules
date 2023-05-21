@@ -54,4 +54,9 @@ module "s3_bucket_development_frontend" {
       },
     ]
   })
+
+  tags = {
+    environment = "development"
+    project     = local.project_name
+  }
 }

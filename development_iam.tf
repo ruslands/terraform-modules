@@ -42,6 +42,7 @@ module "iam_policy_development_lambda" {
 
   tags = {
     environment = "development"
+    project     = local.project_name
   }
 }
 
@@ -70,5 +71,6 @@ resource "aws_iam_role" "development_lambda" {
 
   tags = {
     environment = "development"
+    project     = local.project_name
   }
 }

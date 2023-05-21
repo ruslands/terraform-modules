@@ -10,6 +10,7 @@ locals {
     "AWSLambda_FullAccess",
     "CloudWatchFullAccess",
     "AmazonAPIGatewayAdministrator",
+    "AmazonEC2ContainerRegistryPowerUser",
   ])
 }
 
