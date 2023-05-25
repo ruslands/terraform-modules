@@ -199,9 +199,9 @@ resource "aws_apigatewayv2_domain_name" "extra_staging_domain_name" {
   domain_name = local.extra_staging_domain_name
 
   domain_name_configuration {
-    certificate_arn                        = aws_acm_certificate.extra_wildcard.arn
-    endpoint_type                          = "REGIONAL"
-    security_policy                        = "TLS_1_2"
+    certificate_arn = aws_acm_certificate.extra_wildcard.arn
+    endpoint_type   = "REGIONAL"
+    security_policy = "TLS_1_2"
   }
 
   tags = {
