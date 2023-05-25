@@ -194,3 +194,24 @@ module "development_api_gateway" {
     project     = local.project_name
   }
 }
+
+resource "aws_apigatewayv2_domain_name" "extra_development_domain_name" {
+  domain_name = local.extra_development_domain_name
+
+  domain_name_configuration {
+    certificate_arn                        = aws_acm_certificate.extra_wildcard.arn
+    endpoint_type                          = "REGIONAL"
+    security_policy                        = "TLS_1_2"
+  }
+
+  tags = {
+    environment = "development"
+    project     = local.project_name
+  }
+}
+
+resource "aws_apigatewayv2_api_mapping" "extra_development_domain_name" {
+  api_id      = module.development_api_gateway.apigatewayv2_api_id
+  domain_name = aws_apigatewayv2_domain_name.extra_development_domain_name.id
+  stage       = module.development_api_gateway.default_apigatewayv2_stage_id
+}
