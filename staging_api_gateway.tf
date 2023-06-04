@@ -1,9 +1,5 @@
-data "aws_lambda_function" "staging_auth" {
-  function_name = "staging-${local.project_name}-auth"
-}
-
-data "aws_lambda_function" "staging_core" {
-  function_name = "staging-${local.project_name}-core"
+data "aws_lambda_function" "staging_backend" {
+  function_name = "staging-${local.project_name}-backend"
 }
 
 module "staging_api_gateway" {
@@ -31,139 +27,99 @@ module "staging_api_gateway" {
 
   # Routes and integrations
   integrations = {
-    "POST /api/auth/v1/auth/basic" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "POST /api/v1/basic" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Basic Auth)"
+      description            = "Backend function proxy (Basic Auth)"
     }
-    "GET /api/auth/v1/auth/google" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/google" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Google Auth)"
+      description            = "Backend function proxy (Google Auth)"
     }
-    "GET /api/auth/v1/auth/google_callback" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/google_callback" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Google Auth)"
+      description            = "Backend function proxy (Google Auth)"
     }
-    "GET /api/auth/v1/auth/keycloak" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/keycloak" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Keycloak Auth)"
+      description            = "Backend function proxy (Keycloak Auth)"
     }
-    "GET /api/auth/v1/auth/keycloak_callback" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/keycloak_callback" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Keycloak Auth)"
+      description            = "Backend function proxy (Keycloak Auth)"
     }
-    "GET /api/auth/v1/auth/apple" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/apple" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Apple Auth)"
+      description            = "Backend function proxy (Apple Auth)"
     }
-    "GET /api/auth/v1/auth/apple_callback" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/apple_callback" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Apple Auth)"
+      description            = "Backend function proxy (Apple Auth)"
     }
-    "POST /api/auth/v1/auth/refresh-token" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "POST /api/v1/refresh-token" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Refresh Token)"
+      description            = "Backend function proxy (Refresh Token)"
     }
-    "GET /api/auth/v1/auth/logout" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /api/v1/logout" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth function proxy (Logout)"
+      description            = "Backend function proxy (Logout)"
     }
-    "ANY /auth/admin" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "ANY /admin" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth API Docs"
+      description            = "Backend API Docs"
       authorizer_key         = "auth-function"
       authorization_type     = "CUSTOM"
     }
-    "GET /auth/docs" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /docs" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth API Docs"
+      description            = "Backend API Docs"
       authorizer_key         = "auth-function"
       authorization_type     = "CUSTOM"
     }
-    "GET /auth/redoc" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /redoc" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth API Docs"
+      description            = "Backend API Docs"
       authorizer_key         = "auth-function"
       authorization_type     = "CUSTOM"
     }
-    "GET /auth/openapi.json" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "GET /openapi.json" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Auth API Docs"
+      description            = "Backend API Docs"
       authorizer_key         = "auth-function"
       authorization_type     = "CUSTOM"
     }
-    "ANY /core/admin" = {
-      lambda_arn             = data.aws_lambda_function.staging_core.arn
-      payload_format_version = "2.0"
-      timeout_milliseconds   = 30 * 1000
-      description            = "Core API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
-    }
-    "GET /core/docs" = {
-      lambda_arn             = data.aws_lambda_function.staging_core.arn
-      payload_format_version = "2.0"
-      timeout_milliseconds   = 30 * 1000
-      description            = "Core API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
-    }
-    "GET /core/redoc" = {
-      lambda_arn             = data.aws_lambda_function.staging_core.arn
-      payload_format_version = "2.0"
-      timeout_milliseconds   = 30 * 1000
-      description            = "Core API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
-    }
-    "GET /core/openapi.json" = {
-      lambda_arn             = data.aws_lambda_function.staging_core.arn
-      payload_format_version = "2.0"
-      timeout_milliseconds   = 30 * 1000
-      description            = "Core API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
-    }
-    "ANY /api/auth/v1/{proxy+}" = {
-      lambda_arn             = data.aws_lambda_function.staging_auth.arn
+    "ANY /api/v1/{proxy+}" = {
+      lambda_arn             = data.aws_lambda_function.staging_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       authorizer_key         = "auth-function"
       authorization_type     = "CUSTOM"
-      description            = "Auth function proxy"
-    }
-    "ANY /api/core/v1/{proxy+}" = {
-      lambda_arn             = data.aws_lambda_function.staging_core.arn
-      payload_format_version = "2.0"
-      timeout_milliseconds   = 30 * 1000
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
-      description            = "Core function proxy"
+      description            = "Backend function proxy"
     }
     "GET /{file+}" = {
       description          = "S3 frontend proxy"
@@ -182,7 +138,7 @@ module "staging_api_gateway" {
   authorizers = {
     "auth-function" = {
       authorizer_type                   = "REQUEST"
-      authorizer_uri                    = data.aws_lambda_function.staging_auth.invoke_arn
+      authorizer_uri                    = data.aws_lambda_function.staging_backend.invoke_arn
       identity_sources                  = ["$request.header.Authorization"]
       name                              = "staging-${local.project_name}-authorizer"
       authorizer_payload_format_version = "2.0"

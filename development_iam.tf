@@ -29,7 +29,7 @@ module "iam_policy_development_lambda" {
         ],
         "Effect" : "Allow",
         "Resource" : [
-          "arn:aws:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:development/${local.project_name}/*",
+          "arn:aws:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:${local.project_name}/development-*",
         ]
       },
       {

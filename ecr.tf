@@ -1,7 +1,6 @@
 module "ecr_repository" {
   for_each = toset([
-    "${local.project_name}-core",
-    "${local.project_name}-auth",
+    "${local.project_name}-backend",
   ])
   source = "git::https://github.com/terraform-aws-modules/terraform-aws-ecr.git?ref=v1.6.0"
 
