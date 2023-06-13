@@ -1,6 +1,6 @@
-# data "aws_lambda_function" "production_backend" {
-#   function_name = "production-${local.project_name}-backend"
-# }
+data "aws_lambda_function" "production_backend" {
+  function_name = "production-${local.project_name}-backend"
+}
 
 module "production_api_gateway" {
   source = "git::https://github.com/terraform-aws-modules/terraform-aws-apigateway-v2.git?ref=v2.2.2"
@@ -27,107 +27,107 @@ module "production_api_gateway" {
 
   # Routes and integrations
   integrations = {
-    # "POST /api/v1/basic" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Basic Auth)"
-    # }
-    # "GET /api/v1/google" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Google Auth)"
-    # }
-    # "GET /api/v1/google_callback" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Google Auth)"
-    # }
-    # "GET /api/v1/keycloak" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Keycloak Auth)"
-    # }
-    # "GET /api/v1/keycloak_callback" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Keycloak Auth)"
-    # }
-    # "GET /api/v1/apple" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Apple Auth)"
-    # }
-    # "GET /api/v1/apple_callback" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Apple Auth)"
-    # }
-    # "POST /api/v1/refresh-token" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Refresh Token)"
-    # }
-    # "GET /api/v1/logout" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend function proxy (Logout)"
-    # }
-    # "ANY /admin" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend API Docs"
-    #   authorizer_key         = "auth-function"
-    #   authorization_type     = "CUSTOM"
-    # }
-    # "GET /docs" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend API Docs"
-    #   authorizer_key         = "auth-function"
-    #   authorization_type     = "CUSTOM"
-    # }
-    # "GET /redoc" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend API Docs"
-    #   authorizer_key         = "auth-function"
-    #   authorization_type     = "CUSTOM"
-    # }
-    # "GET /openapi.json" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   description            = "Backend API Docs"
-    #   authorizer_key         = "auth-function"
-    #   authorization_type     = "CUSTOM"
-    # }
-    # "ANY /api/v1/{proxy+}" = {
-    #   lambda_arn             = data.aws_lambda_function.production_backend.arn
-    #   payload_format_version = "2.0"
-    #   timeout_milliseconds   = 30 * 1000
-    #   authorizer_key         = "auth-function"
-    #   authorization_type     = "CUSTOM"
-    #   description            = "Backend function proxy"
-    # }
-    # "GET /{file+}" = {
-    #   description          = "S3 frontend proxy"
-    #   integration_type     = "HTTP_PROXY"
-    #   integration_uri      = "http://${module.s3_bucket_production_frontend.s3_bucket_website_endpoint}/{file}"
-    #   timeout_milliseconds = 30 * 1000
-    #   integration_method   = "GET"
-    # }
+    "POST /api/v1/basic" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Basic Auth)"
+    }
+    "GET /api/v1/google" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Google Auth)"
+    }
+    "GET /api/v1/google_callback" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Google Auth)"
+    }
+    "GET /api/v1/keycloak" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Keycloak Auth)"
+    }
+    "GET /api/v1/keycloak_callback" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Keycloak Auth)"
+    }
+    "GET /api/v1/apple" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Apple Auth)"
+    }
+    "GET /api/v1/apple_callback" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Apple Auth)"
+    }
+    "POST /api/v1/refresh-token" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Refresh Token)"
+    }
+    "GET /api/v1/logout" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy (Logout)"
+    }
+    "ANY /admin" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Docs"
+      authorizer_key         = "auth-function"
+      authorization_type     = "CUSTOM"
+    }
+    "GET /docs" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Docs"
+      authorizer_key         = "auth-function"
+      authorization_type     = "CUSTOM"
+    }
+    "GET /redoc" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Docs"
+      authorizer_key         = "auth-function"
+      authorization_type     = "CUSTOM"
+    }
+    "GET /openapi.json" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Docs"
+      authorizer_key         = "auth-function"
+      authorization_type     = "CUSTOM"
+    }
+    "ANY /api/v1/{proxy+}" = {
+      lambda_arn             = data.aws_lambda_function.production_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      authorizer_key         = "auth-function"
+      authorization_type     = "CUSTOM"
+      description            = "Backend function proxy"
+    }
+    "GET /{file+}" = {
+      description          = "S3 frontend proxy"
+      integration_type     = "HTTP_PROXY"
+      integration_uri      = "http://${module.s3_bucket_production_frontend.s3_bucket_website_endpoint}/{file}"
+      timeout_milliseconds = 30 * 1000
+      integration_method   = "GET"
+    }
   }
 
   #   "$default" = {
@@ -135,15 +135,15 @@ module "production_api_gateway" {
   #   }
   # }
 
-  # authorizers = {
-  #   "auth-function" = {
-  #     authorizer_type                   = "REQUEST"
-  #     authorizer_uri                    = data.aws_lambda_function.production_backend.invoke_arn
-  #     identity_sources                  = ["$request.header.Authorization"]
-  #     name                              = "production-${local.project_name}-authorizer"
-  #     authorizer_payload_format_version = "2.0"
-  #   }
-  # }
+  authorizers = {
+    "auth-function" = {
+      authorizer_type                   = "REQUEST"
+      authorizer_uri                    = data.aws_lambda_function.production_backend.invoke_arn
+      identity_sources                  = ["$request.header.Authorization"]
+      name                              = "production-${local.project_name}-authorizer"
+      authorizer_payload_format_version = "2.0"
+    }
+  }
 
   tags = {
     environment = "production"
