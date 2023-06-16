@@ -27,99 +27,155 @@ module "development_api_gateway" {
 
   # Routes and integrations
   integrations = {
-    "POST /api/v1/basic" = {
+    "POST /api/v1/auth/basic" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Basic Auth)"
     }
-    "GET /api/v1/google" = {
+    "GET /api/v1/auth/google" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Google Auth)"
     }
-    "GET /api/v1/google_callback" = {
+    "GET /api/v1/auth/google/callback" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Google Auth)"
     }
-    "GET /api/v1/keycloak" = {
+    "GET /api/v1/auth/keycloak" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Keycloak Auth)"
     }
-    "GET /api/v1/keycloak_callback" = {
+    "GET /api/v1/auth/keycloak/callback" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Keycloak Auth)"
     }
-    "GET /api/v1/apple" = {
+    "GET /api/v1/auth/apple" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Apple Auth)"
     }
-    "GET /api/v1/apple_callback" = {
+    "GET /api/v1/auth/apple/callback" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Apple Auth)"
     }
-    "POST /api/v1/refresh-token" = {
+    "POST /api/v1/auth/refresh-token" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Refresh Token)"
     }
-    "GET /api/v1/logout" = {
+    "GET /api/v1/auth/logout" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend function proxy (Logout)"
     }
-    "ANY /admin" = {
+    "GET /admin" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "POST /admin" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "DELETE /admin" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "PATCH /admin" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "PUT /admin" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
       description            = "Backend API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
     }
     "GET /docs" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Backend API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
     }
     "GET /redoc" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Backend API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
     }
     "GET /openapi.json" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      description            = "Backend API Docs"
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
+      description            = "Backend API Admin"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
     }
-    "ANY /api/v1/{proxy+}" = {
+    "GET /api/v1/{proxy+}" = {
       lambda_arn             = data.aws_lambda_function.development_backend.arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 30 * 1000
-      authorizer_key         = "auth-function"
-      authorization_type     = "CUSTOM"
       description            = "Backend function proxy"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "POST /api/v1/{proxy+}" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "DELETE /api/v1/{proxy+}" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
+    }
+    "PATCH /api/v1/{proxy+}" = {
+      lambda_arn             = data.aws_lambda_function.development_backend.arn
+      payload_format_version = "2.0"
+      timeout_milliseconds   = 30 * 1000
+      description            = "Backend function proxy"
+      # authorizer_key         = "auth-function"
+      # authorization_type     = "CUSTOM"
     }
     "GET /{file+}" = {
       description          = "S3 frontend proxy"
