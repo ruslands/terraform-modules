@@ -9,11 +9,11 @@ module "staging_api_gateway" {
   description   = "[staging] ${local.project_name} API Gateway"
   protocol_type = "HTTP"
 
-  #   cors_configuration = {
-  #     allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
-  #     allow_methods = ["*"]
-  #     allow_origins = ["*"]
-  #   }
+  cors_configuration = {
+    allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
+    allow_methods = ["*"]
+    allow_origins = ["*"]
+  }
 
   # Custom domain
   domain_name                  = local.staging_domain_name
