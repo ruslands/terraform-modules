@@ -15,7 +15,5 @@ module "ecr_repository" {
   repository_image_tag_mutability = "MUTABLE"
   repository_force_delete         = true
 
-  tags = {
-    project = local.project_name
-  }
+  tags = local.common_tags
 }

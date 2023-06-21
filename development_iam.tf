@@ -40,10 +40,7 @@ module "iam_policy_development_lambda" {
     ]
   })
 
-  tags = {
-    environment = "development"
-    project     = local.project_name
-  }
+  tags = local.development_tags
 }
 
 resource "aws_iam_role" "development_lambda" {
@@ -69,8 +66,5 @@ resource "aws_iam_role" "development_lambda" {
     module.iam_policy_development_lambda.arn
   ]
 
-  tags = {
-    environment = "development"
-    project     = local.project_name
-  }
+  tags = local.development_tags
 }

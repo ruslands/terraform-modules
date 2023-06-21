@@ -177,10 +177,31 @@ module "staging_api_gateway" {
       # authorizer_key         = "auth-function"
       # authorization_type     = "CUSTOM"
     }
+    "GET /app/{file+}" = {
+      description          = "S3 frontend proxy"
+      integration_type     = "HTTP_PROXY"
+      integration_uri      = "http://${module.s3_bucket_staging_frontend["${local.project_name}-frontend-app-client-staging"].s3_bucket_website_endpoint}/{file}"
+      timeout_milliseconds = 30 * 1000
+      integration_method   = "GET"
+    }
+    "GET /admin/{file+}" = {
+      description          = "S3 frontend proxy"
+      integration_type     = "HTTP_PROXY"
+      integration_uri      = "http://${module.s3_bucket_staging_frontend["${local.project_name}-frontend-app-admin-staging"].s3_bucket_website_endpoint}/{file}"
+      timeout_milliseconds = 30 * 1000
+      integration_method   = "GET"
+    }
+    "GET /media/{file+}" = {
+      description          = "S3 media proxy"
+      integration_type     = "HTTP_PROXY"
+      integration_uri      = "http://${module.s3_bucket_media.s3_bucket_bucket_domain_name}/{file}"
+      timeout_milliseconds = 30 * 1000
+      integration_method   = "GET"
+    }
     "GET /{file+}" = {
       description          = "S3 frontend proxy"
       integration_type     = "HTTP_PROXY"
-      integration_uri      = "http://${module.s3_bucket_staging_frontend.s3_bucket_website_endpoint}/{file}"
+      integration_uri      = "http://${module.s3_bucket_staging_frontend["${local.project_name}-frontend-landing-staging"].s3_bucket_website_endpoint}/{file}"
       timeout_milliseconds = 30 * 1000
       integration_method   = "GET"
     }
@@ -201,10 +222,7 @@ module "staging_api_gateway" {
     }
   }
 
-  tags = {
-    environment = "staging"
-    project     = local.project_name
-  }
+  tags = local.staging_tags
 }
 
 resource "aws_apigatewayv2_domain_name" "extra_staging_domain_name" {
@@ -216,10 +234,7 @@ resource "aws_apigatewayv2_domain_name" "extra_staging_domain_name" {
     security_policy = "TLS_1_2"
   }
 
-  tags = {
-    environment = "staging"
-    project     = local.project_name
-  }
+  tags = local.staging_tags
 }
 
 resource "aws_apigatewayv2_api_mapping" "extra_staging_domain_name" {

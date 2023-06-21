@@ -40,10 +40,7 @@ module "iam_policy_staging_lambda" {
     ]
   })
 
-  tags = {
-    environment = "staging"
-    project     = local.project_name
-  }
+  tags = local.staging_tags
 }
 
 resource "aws_iam_role" "staging_lambda" {
@@ -69,8 +66,5 @@ resource "aws_iam_role" "staging_lambda" {
     module.iam_policy_staging_lambda.arn
   ]
 
-  tags = {
-    environment = "staging"
-    project     = local.project_name
-  }
+  tags = local.staging_tags
 }

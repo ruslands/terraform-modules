@@ -1,13 +1,17 @@
 
 locals {
-  development_s3_bucket_name = "development-${local.project_name}-frontend"
-  media_s3_bucket_name       = "${local.project_name}-media"
+  development_s3_buckets = toset([
+    "${local.project_name}-frontend-app-client-development",
+    "${local.project_name}-frontend-app-admin-development",
+    "${local.project_name}-frontend-landing-development",
+  ])
 }
 
 module "s3_bucket_development_frontend" {
-  source = "git::https://github.com/terraform-aws-modules/terraform-aws-s3-bucket.git?ref=v3.10.1"
+  for_each = local.development_s3_buckets
+  source   = "git::https://github.com/terraform-aws-modules/terraform-aws-s3-bucket.git?ref=v3.10.1"
 
-  bucket                  = local.development_s3_bucket_name
+  bucket                  = each.key
   block_public_acls       = false
   block_public_policy     = false
   ignore_public_acls      = false
@@ -36,8 +40,8 @@ module "s3_bucket_development_frontend" {
           "s3:DeleteObject",
         ],
         "Resource" : [
-          "arn:aws:s3:::${local.development_s3_bucket_name}",
-          "arn:aws:s3:::${local.development_s3_bucket_name}/*",
+          "arn:aws:s3:::${each.key}",
+          "arn:aws:s3:::${each.key}/*",
         ]
       },
       {
@@ -48,15 +52,12 @@ module "s3_bucket_development_frontend" {
           "s3:GetObject",
         ]
         "Resource" : [
-          "arn:aws:s3:::${local.development_s3_bucket_name}/*",
-          "arn:aws:s3:::${local.development_s3_bucket_name}",
+          "arn:aws:s3:::${each.key}/*",
+          "arn:aws:s3:::${each.key}",
         ]
       },
     ]
   })
 
-  tags = {
-    environment = "development"
-    project     = local.project_name
-  }
+  tags = local.development_tags
 }

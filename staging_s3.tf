@@ -1,12 +1,17 @@
 
 locals {
-  staging_s3_bucket_name = "staging-${local.project_name}-frontend"
+  staging_s3_buckets = toset([
+    "${local.project_name}-frontend-app-client-staging",
+    "${local.project_name}-frontend-app-admin-staging",
+    "${local.project_name}-frontend-landing-staging",
+  ])
 }
 
 module "s3_bucket_staging_frontend" {
-  source = "git::https://github.com/terraform-aws-modules/terraform-aws-s3-bucket.git?ref=v3.10.1"
+  for_each = local.staging_s3_buckets
+  source   = "git::https://github.com/terraform-aws-modules/terraform-aws-s3-bucket.git?ref=v3.10.1"
 
-  bucket                  = local.staging_s3_bucket_name
+  bucket                  = each.key
   block_public_acls       = false
   block_public_policy     = false
   ignore_public_acls      = false
@@ -35,8 +40,8 @@ module "s3_bucket_staging_frontend" {
           "s3:DeleteObject",
         ],
         "Resource" : [
-          "arn:aws:s3:::${local.staging_s3_bucket_name}",
-          "arn:aws:s3:::${local.staging_s3_bucket_name}/*",
+          "arn:aws:s3:::${each.key}",
+          "arn:aws:s3:::${each.key}/*",
         ]
       },
       {
@@ -47,15 +52,12 @@ module "s3_bucket_staging_frontend" {
           "s3:GetObject",
         ]
         "Resource" : [
-          "arn:aws:s3:::${local.staging_s3_bucket_name}/*",
-          "arn:aws:s3:::${local.staging_s3_bucket_name}",
+          "arn:aws:s3:::${each.key}/*",
+          "arn:aws:s3:::${each.key}",
         ]
       },
     ]
   })
 
-  tags = {
-    environment = "staging"
-    project     = local.project_name
-  }
+  tags = local.staging_tags
 }

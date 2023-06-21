@@ -40,10 +40,7 @@ module "iam_policy_production_lambda" {
     ]
   })
 
-  tags = {
-    environment = "production"
-    project     = local.project_name
-  }
+  tags = local.production_tags
 }
 
 resource "aws_iam_role" "production_lambda" {
@@ -69,8 +66,5 @@ resource "aws_iam_role" "production_lambda" {
     module.iam_policy_production_lambda.arn
   ]
 
-  tags = {
-    environment = "production"
-    project     = local.project_name
-  }
+  tags = local.production_tags
 }
