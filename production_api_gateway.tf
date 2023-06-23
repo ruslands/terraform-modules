@@ -191,7 +191,14 @@ module "production_api_gateway" {
       timeout_milliseconds = 30 * 1000
       integration_method   = "GET"
     }
-    "GET /admin/{file+}" = {
+    "GET /console" = {
+      description          = "S3 frontend proxy"
+      integration_type     = "HTTP_PROXY"
+      integration_uri      = "http://${module.s3_bucket_production_frontend["${local.project_name}-frontend-app-admin-production"].s3_bucket_website_endpoint}/"
+      timeout_milliseconds = 30 * 1000
+      integration_method   = "GET"
+    }
+    "GET /console/{file+}" = {
       description          = "S3 frontend proxy"
       integration_type     = "HTTP_PROXY"
       integration_uri      = "http://${module.s3_bucket_production_frontend["${local.project_name}-frontend-app-admin-production"].s3_bucket_website_endpoint}/{file}"
