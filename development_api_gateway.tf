@@ -177,17 +177,17 @@ module "development_api_gateway" {
       # authorizer_key         = "auth-function"
       # authorization_type     = "CUSTOM"
     }
-    "GET /app/{file+}" = {
-      description          = "S3 frontend proxy"
-      integration_type     = "HTTP_PROXY"
-      integration_uri      = "http://${module.s3_bucket_development_frontend["${local.project_name}-frontend-app-client-development"].s3_bucket_website_endpoint}/{file}"
-      timeout_milliseconds = 30 * 1000
-      integration_method   = "GET"
-    }
     "GET /app" = {
       description          = "S3 frontend proxy"
       integration_type     = "HTTP_PROXY"
       integration_uri      = "http://${module.s3_bucket_development_frontend["${local.project_name}-frontend-app-client-development"].s3_bucket_website_endpoint}/"
+      timeout_milliseconds = 30 * 1000
+      integration_method   = "GET"
+    }
+    "GET /app/{file+}" = {
+      description          = "S3 frontend proxy"
+      integration_type     = "HTTP_PROXY"
+      integration_uri      = "http://${module.s3_bucket_development_frontend["${local.project_name}-frontend-app-client-development"].s3_bucket_website_endpoint}/{file}"
       timeout_milliseconds = 30 * 1000
       integration_method   = "GET"
     }
