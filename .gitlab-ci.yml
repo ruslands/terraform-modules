@@ -30,6 +30,7 @@ stages:
       - .terraform
     policy: pull
   before_script:
+    - echo "$TERRAFORM_GCP_SECRET_JSON" | base64 -d > $CI_PROJECT_DIR/google_creds.json
     - echo "$TF_SECRETS" | base64 -d > $CI_PROJECT_DIR/secrets.auto.tfvars
 
 terrafrom:init:

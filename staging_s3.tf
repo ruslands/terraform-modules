@@ -1,4 +1,3 @@
-
 locals {
   staging_s3_buckets = toset([
     "${local.project_name}-frontend-app-client-staging",

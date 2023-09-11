@@ -1,3 +1,4 @@
 .terraform
 /secrets.auto.tfvars
 state.json
+/google_creds.json

@@ -9,3 +9,25 @@ provider "registry.terraform.io/hashicorp/aws" {
     "h1:4xXf+eZtKPiRyjle7HUPaVzF3h/6S8seNEIIbWlDbuk=",
   ]
 }
+
+provider "registry.terraform.io/hashicorp/google" {
+  version = "4.81.0"
+  hashes = [
+    "h1:nalbTQAn81Spx5arUAAj0N2tbUB7qXywYYm36WA+LQI=",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/google-beta" {
+  version = "4.81.0"
+  hashes = [
+    "h1:ib1pat/Ok69ZeonZ7kdTLRtT8FPJP0+UF75ZT6TYf5w=",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/random" {
+  version     = "3.5.1"
+  constraints = ">= 2.1.0"
+  hashes = [
+    "h1:sZ7MTSD4FLekNN2wSNFGpM+5slfvpm5A/NLVZiB7CO0=",
+  ]
+}
