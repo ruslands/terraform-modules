@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/google-beta"
       version = "= 4.81.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "= 3.5.1"
+    }
   }
   backend "http" {
     address        = "https://gitlab.com/api/v4/projects/46113981/terraform/state/terraform-infra"
