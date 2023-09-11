@@ -209,6 +209,14 @@ resource "google_compute_url_map" "default" {
         content {
           paths   = path_rule.value.paths
           service = local.backends[path_rule.value.backend].id
+          dynamic "route_action" {
+            for_each = path_rule.value.path_prefix_rewrite != null ? [path_rule.value.path_prefix_rewrite] : []
+            content {
+              url_rewrite {
+                path_prefix_rewrite = route_action.value
+              }
+            }
+          }
         }
       }
     }

@@ -25,8 +25,18 @@ module "gcp_lb" {
           default_backend = "development-frontend-landing"
           path_rules = [
             {
-              paths   = ["/api"]
+              paths   = ["/api/*"]
               backend = "development-api"
+            },
+            {
+              paths               = ["/console", "/console/*"]
+              backend             = "development-frontend-app-admin"
+              path_prefix_rewrite = "/"
+            },
+            {
+              paths               = ["/app", "/app/*"]
+              backend             = "development-frontend-app-client"
+              path_prefix_rewrite = "/"
             }
           ]
         }
@@ -38,6 +48,14 @@ module "gcp_lb" {
     development-frontend-landing = {
       type        = "BUCKET"
       bucket_name = "${local.project_name}-frontend-landing-development"
+    }
+    development-frontend-app-admin = {
+      type        = "BUCKET"
+      bucket_name = "${local.project_name}-frontend-app-admin-development"
+    }
+    development-frontend-app-client = {
+      type        = "BUCKET"
+      bucket_name = "${local.project_name}-frontend-app-client-development"
     }
     development-api = {
       type     = "NEG"

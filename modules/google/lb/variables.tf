@@ -65,8 +65,9 @@ variable "url_map_config" {
         name            = string
         default_backend = optional(string)
         path_rules = optional(list(object({
-          paths   = list(string)
-          backend = string
+          paths               = list(string)
+          backend             = string
+          path_prefix_rewrite = optional(string)
         })))
       })
     }))
