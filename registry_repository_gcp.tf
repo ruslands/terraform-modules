@@ -1,6 +1,6 @@
 module "registry_repository_gcp" {
   for_each = toset([
-    "backend",
+    local.project_name,
   ])
   source = "./modules/google/registry_repository"
 
