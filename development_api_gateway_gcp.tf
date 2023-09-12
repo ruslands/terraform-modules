@@ -1,3 +1,8 @@
+data "google_cloud_run_service" "development_backend" {
+  name     = "development-backend"
+  location = local.google_region
+}
+
 module "development_api_gateway_google" {
   source          = "./modules/google/api_gateway"
   name            = "development-api"
@@ -19,7 +24,7 @@ paths:
           type: string
           required: true
       x-google-backend:
-        address: ${module.cloud_run.service_url}
+        address: ${data.google_cloud_run_service.development_backend.status[0].url}
         path_translation: APPEND_PATH_TO_ADDRESS
       summary: Frontend proxy
       operationId: get-static
