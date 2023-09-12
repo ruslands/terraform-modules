@@ -35,13 +35,11 @@ provider "aws" {
 }
 
 provider "google" {
-  project     = local.google_project_id
-  region      = local.google_region
-  credentials = local.google_credentials
+  project = local.google_project_id
+  region  = local.google_region
 }
 
 provider "google-beta" {
-  project     = local.google_project_id
-  region      = local.google_region
-  credentials = local.google_credentials
+  project = local.google_project_id
+  region  = local.google_region
 }
