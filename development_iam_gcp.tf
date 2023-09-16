@@ -4,7 +4,7 @@ module "development_sa_backend_gcp" {
   name       = "development-backend-sa"
   secret_manager_iam_roles = {
     "roles/secretmanager.secretAccessor" = [
-      "development",
+      "development-backend",
       "test-secret"
     ]
   }
