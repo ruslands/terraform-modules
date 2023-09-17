@@ -1,4 +1,7 @@
 module "gcp_lb" {
+  depends_on = [
+    module.frontend_buckets_gcp
+  ]
   source         = "./modules/google/lb"
   project        = local.google_project_id
   name           = "${local.project_name}-lb"
@@ -37,7 +40,12 @@ module "gcp_lb" {
               paths               = ["/app", "/app/*"]
               backend             = "development-frontend-app-client"
               path_prefix_rewrite = "/"
-            }
+            },
+            # {
+            #   paths               = ["/media/*"]
+            #   backend             = "media"
+            #   path_prefix_rewrite = "/"
+            # }
           ]
         }
       }
@@ -45,6 +53,10 @@ module "gcp_lb" {
   }
 
   backends = {
+    # media = {
+    #   type        = "BUCKET"
+    #   bucket_name = "${local.project_name}-media"
+    # }
     development-frontend-landing = {
       type        = "BUCKET"
       bucket_name = "${local.project_name}-frontend-landing-development"

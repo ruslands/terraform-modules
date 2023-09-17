@@ -116,5 +116,26 @@ paths:
       responses:
         "200":
           description: OK
+  /docs:
+    get:
+      operationId: docs-get
+      security: []
+      responses:
+        "200":
+          description: OK
+  /redoc:
+    get:
+      operationId: redoc-get
+      security: []
+      responses:
+        "200":
+          description: OK
+  /openapi.json:
+    get:
+      operationId: openapi
+      security: []
+      responses:
+        "200":
+          description: OK
 EOF
 }
