@@ -6,7 +6,7 @@ module "gcp_lb" {
   https_redirect = true
   create_address = true
   managed_ssl_certificate_domains = [
-    "gcp-dev.allpapers.online"
+    "development.allpapers.online"
   ]
   # TODO: use cert from Certificate Manager
   # certificate_map = module.certificate_gcp.certificate_map_id
@@ -19,13 +19,13 @@ module "gcp_lb" {
     default_backend = "development-frontend-landing"
     host_rules = [
       {
-        hosts = ["gcp-dev.allpapers.online"]
+        hosts = ["development.allpapers.online"]
         path_matcher = {
           name            = "development"
           default_backend = "development-frontend-landing"
           path_rules = [
             {
-              paths   = ["/api/*"]
+              paths   = ["/api/*", "/admin"]
               backend = "development-api"
             },
             {
