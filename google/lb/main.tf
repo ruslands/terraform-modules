@@ -26,7 +26,7 @@ locals {
   is_internal      = var.load_balancing_scheme == "INTERNAL_SELF_MANAGED"
   internal_network = local.is_internal ? var.network : null
   backends = merge(
-    { for k, v in google_compute_backend_service.neg : k => v },
+    { for k, v in google_compute_backend_service.service : k => v },
     { for k, v in google_compute_backend_bucket.bucket : k => v },
   )
 }
@@ -181,7 +181,7 @@ resource "google_compute_managed_ssl_certificate" "default" {
 
 resource "google_compute_url_map" "default" {
   depends_on = [
-    google_compute_backend_service.neg,
+    google_compute_backend_service.service,
     google_compute_backend_bucket.bucket,
   ]
   provider        = google-beta
@@ -235,9 +235,9 @@ resource "google_compute_url_map" "https_redirect" {
   }
 }
 
-resource "google_compute_backend_service" "neg" {
+resource "google_compute_backend_service" "service" {
   provider = google-beta
-  for_each = { for k, v in var.backends : k => v if v.type == "NEG" }
+  for_each = { for k, v in var.backends : k => v if v.type == "SERVICE" }
 
   project = coalesce(each.value["project"], var.project)
   name    = "${var.name}-backend-${each.key}"
@@ -263,12 +263,13 @@ resource "google_compute_backend_service" "neg" {
   # To achieve a null backend security_policy, set each.value.security_policy to "" (empty string), otherwise, it fallsback to var.security_policy.
   security_policy = lookup(each.value, "security_policy") == "" ? null : (lookup(each.value, "security_policy") == null ? var.security_policy : each.value.security_policy)
 
+  health_checks = each.value.health_check != null ? [google_compute_health_check.check[each.key].id] : null
+
   dynamic "backend" {
     for_each = toset(each.value["groups"])
     content {
       description = lookup(backend.value, "description", null)
       group       = lookup(backend.value, "group")
-
     }
   }
 
@@ -321,10 +322,38 @@ resource "google_compute_backend_service" "neg" {
       }
     }
   }
-
-
 }
 
+resource "google_compute_health_check" "check" {
+  for_each           = { for k, v in var.backends : k => v if v.type == "SERVICE" && v.health_check != null }
+  name               = "${var.name}-backend-${each.key}"
+  check_interval_sec = lookup(each.value.health_check, "check_interval_sec", 15)
+  timeout_sec        = lookup(each.value.health_check, "timeout_sec", 3)
+
+  dynamic "http_health_check" {
+    for_each = each.value.health_check.http_health_check != null ? [1] : []
+    content {
+      port_name          = lookup(each.value.health_check.http_health_check, "port_name", "http")
+      request_path       = each.value.health_check.http_health_check.request_path
+      port_specification = lookup(each.value.health_check.http_health_check, "port_specification", "USE_NAMED_PORT")
+      port               = lookup(each.value.health_check.http_health_check, "port", null)
+      response           = lookup(each.value.health_check.http_health_check, "response", null)
+      proxy_header       = lookup(each.value.health_check.http_health_check, "proxy_header", null)
+    }
+  }
+
+  dynamic "tcp_health_check" {
+    for_each = each.value.health_check.tcp_health_check != null ? [1] : []
+    content {
+      port_name          = lookup(each.value.health_check.tcp_health_check, "port_name", "http")
+      request            = each.value.health_check.tcp_health_check.request
+      port_specification = lookup(each.value.health_check.tcp_health_check, "port_specification", "USE_NAMED_PORT")
+      port               = lookup(each.value.health_check.tcp_health_check, "port", null)
+      response           = lookup(each.value.health_check.tcp_health_check, "response", null)
+      proxy_header       = lookup(each.value.health_check.tcp_health_check, "proxy_header", null)
+    }
+  }
+}
 
 resource "google_compute_backend_bucket" "bucket" {
   provider = google-beta

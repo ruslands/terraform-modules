@@ -104,6 +104,30 @@ variable "backends" {
       group = string
     })))
 
+    health_check = optional(object({
+      check_interval_sec = optional(number)
+      timeout_sec        = optional(number)
+
+      http_health_check = optional(object({
+        host               = optional(string)
+        response           = optional(string)
+        port               = optional(number)
+        port_name          = optional(string)
+        request_path       = optional(string)
+        port_specification = optional(string)
+        proxy_header       = optional(string)
+      }))
+
+      tcp_health_check = optional(object({
+        port               = optional(number)
+        port_name          = optional(string)
+        port_specification = optional(string)
+        request            = optional(string)
+        proxy_header       = optional(string)
+        response           = optional(string)
+      }))
+    }))
+
     iap_config = optional(object({
       enable               = bool
       oauth2_client_id     = optional(string)
