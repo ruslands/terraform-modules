@@ -248,7 +248,7 @@ resource "google_compute_backend_service" "service" {
   protocol  = lookup(each.value, "protocol", "HTTP")
 
   description                     = lookup(each.value, "description", null)
-  timeout_sec                     = lookup(each.value, "timeout_sec", "30")
+  timeout_sec                     = lookup(each.value, "timeout_sec", 30)
   connection_draining_timeout_sec = lookup(each.value, "connection_draining_timeout_sec", null)
   enable_cdn                      = lookup(each.value, "enable_cdn", false)
   compression_mode                = lookup(each.value, "compression_mode", "DISABLED")
